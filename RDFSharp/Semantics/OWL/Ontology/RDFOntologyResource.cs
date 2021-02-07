@@ -14,6 +14,7 @@
    limitations under the License.
 */
 
+using RDFSharp.Model;
 using RDFSharp.Query;
 using System;
 
@@ -44,6 +45,18 @@ namespace RDFSharp.Semantics.OWL
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Checks if this ontology resource belongs to BASE vocabularies, so that it must be considered a reserved term
+        /// </summary>
+        internal bool IsReservedTerm()
+        {
+            string stringValue = this.ToString();
+            return stringValue.IndexOf(RDFVocabulary.RDF.BASE_URI, 0, StringComparison.OrdinalIgnoreCase) > -1
+                      || stringValue.IndexOf(RDFVocabulary.RDFS.BASE_URI, 0, StringComparison.OrdinalIgnoreCase) > -1
+                         || stringValue.IndexOf(RDFVocabulary.XSD.BASE_URI, 0, StringComparison.OrdinalIgnoreCase) > -1
+                            || stringValue.IndexOf(RDFVocabulary.OWL.BASE_URI, 0, StringComparison.OrdinalIgnoreCase) > -1;
+        }
+
         /// <summary>
         /// Checks if this ontology resource represents an ontology class
         /// </summary>

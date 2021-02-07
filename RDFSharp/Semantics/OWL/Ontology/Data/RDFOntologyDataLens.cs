@@ -128,7 +128,7 @@ namespace RDFSharp.Semantics.OWL
             {
                 //Skip already enlisted classes and also reserved/literal-compatible classes
                 var availableclasses = this.Ontology.Model.ClassModel.Where(cls => !result.Any(res => res.Item2.Equals(cls))
-                                                                                                        && !RDFOntologyChecker.CheckReservedClass(cls)
+                                                                                                        && !cls.IsReservedTerm()
                                                                                                             && !RDFOntologyHelper.CheckIsLiteralCompatibleClass(this.Ontology.Model.ClassModel, cls));
 
                 //Evaluate enumerations

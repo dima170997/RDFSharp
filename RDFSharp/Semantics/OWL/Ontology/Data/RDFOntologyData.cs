@@ -323,7 +323,7 @@ namespace RDFSharp.Semantics.OWL
             if (ontologyFact != null && ontologyClass != null)
             {
                 //Enforce preliminary check on usage of BASE classes
-                if (!RDFOntologyChecker.CheckReservedClass(ontologyClass))
+                if (!ontologyClass.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the ClassType relation
                     if (RDFOntologyChecker.CheckClassTypeCompatibility(ontologyClass))
@@ -409,7 +409,7 @@ namespace RDFSharp.Semantics.OWL
             if (aFact != null && objectProperty != null && bFact != null)
             {
                 //Enforce preliminary check on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(objectProperty))
+                if (!objectProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the assertion
                     //Creation of transitive cycles is not allowed [OWL-DL]
@@ -451,7 +451,7 @@ namespace RDFSharp.Semantics.OWL
             if (ontologyFact != null && datatypeProperty != null && ontologyLiteral != null)
             {
                 //Enforce preliminary check on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(datatypeProperty))
+                if (!datatypeProperty.IsReservedTerm())
                 {
                     //Collision with negative assertions must be avoided [OWL2]
                     if (RDFOntologyChecker.CheckAssertionCompatibility(this, ontologyFact, datatypeProperty, ontologyLiteral))
@@ -484,7 +484,7 @@ namespace RDFSharp.Semantics.OWL
             if (aFact != null && objectProperty != null && bFact != null)
             {
                 //Enforce preliminary check on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(objectProperty))
+                if (!objectProperty.IsReservedTerm())
                 {
                     //Collision with assertions must be avoided [OWL2]
                     if (RDFOntologyChecker.CheckNegativeAssertionCompatibility(this, aFact, objectProperty, bFact))
@@ -516,7 +516,7 @@ namespace RDFSharp.Semantics.OWL
             if (ontologyFact != null && datatypeProperty != null && ontologyLiteral != null)
             {
                 //Enforce preliminary check on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(datatypeProperty))
+                if (!datatypeProperty.IsReservedTerm())
                 {
                     //Collision with assertions must be avoided [OWL2]
                     if (RDFOntologyChecker.CheckNegativeAssertionCompatibility(this, ontologyFact, datatypeProperty, ontologyLiteral))

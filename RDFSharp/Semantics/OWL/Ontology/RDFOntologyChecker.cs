@@ -25,14 +25,6 @@ namespace RDFSharp.Semantics.OWL
 
         #region ClassModel
         /// <summary>
-        /// Checks if the given class is a reserved BASE ontology class
-        /// </summary>
-        internal static bool CheckReservedClass(RDFOntologyClass ontClass)
-        {
-            return (RDFBASEOntology.Instance.Model.ClassModel.Classes.ContainsKey(ontClass.PatternMemberID));
-        }
-
-        /// <summary>
         /// Checks if the given childclass can be set subclassof the given motherclass
         /// </summary>
         internal static bool CheckSubClassOfCompatibility(RDFOntologyClassModel classModel,
@@ -70,14 +62,6 @@ namespace RDFSharp.Semantics.OWL
         #endregion
 
         #region PropertyModel
-        /// <summary>
-        /// Checks if the given property is a reserved BASE ontology property
-        /// </summary>
-        internal static bool CheckReservedProperty(RDFOntologyProperty ontProperty)
-        {
-            return (RDFBASEOntology.Instance.Model.PropertyModel.Properties.ContainsKey(ontProperty.PatternMemberID));
-        }
-
         /// <summary>
         /// Checks if the given childproperty can be set subpropertyof the given motherproperty
         /// </summary>

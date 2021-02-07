@@ -378,7 +378,7 @@ namespace RDFSharp.Semantics.OWL
             if (childClass != null && motherClass != null && !childClass.Equals(motherClass))
             {
                 //Enforce preliminary checks on usage of BASE classes
-                if (!RDFOntologyChecker.CheckReservedClass(childClass) && !RDFOntologyChecker.CheckReservedClass(motherClass))
+                if (!childClass.IsReservedTerm() && !motherClass.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the subClassOf relation
                     if (RDFOntologyChecker.CheckSubClassOfCompatibility(this, childClass, motherClass))
@@ -409,7 +409,7 @@ namespace RDFSharp.Semantics.OWL
             if (aClass != null && bClass != null && !aClass.Equals(bClass))
             {
                 //Enforce preliminary checks on usage of BASE classes
-                if (!RDFOntologyChecker.CheckReservedClass(aClass) && !RDFOntologyChecker.CheckReservedClass(bClass))
+                if (!aClass.IsReservedTerm() && !bClass.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the equivalentClass relation
                     if (RDFOntologyChecker.CheckEquivalentClassCompatibility(this, aClass, bClass))
@@ -441,7 +441,7 @@ namespace RDFSharp.Semantics.OWL
             if (aClass != null && bClass != null && !aClass.Equals(bClass))
             {
                 //Enforce preliminary checks on usage of BASE classes
-                if (!RDFOntologyChecker.CheckReservedClass(aClass) && !RDFOntologyChecker.CheckReservedClass(bClass))
+                if (!aClass.IsReservedTerm() && !bClass.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the disjointWith relation
                     if (RDFOntologyChecker.CheckDisjointWithCompatibility(this, aClass, bClass))
@@ -1067,7 +1067,7 @@ namespace RDFSharp.Semantics.OWL
             var result = new RDFGraph();
 
             //Definitions
-            foreach (var c in this.Where(c => !RDFOntologyChecker.CheckReservedClass(c)))
+            foreach (var c in this.Where(c => !c.IsReservedTerm()))
             {
 
                 //Restriction

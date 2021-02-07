@@ -495,7 +495,7 @@ namespace RDFSharp.Semantics.OWL
             if (childProperty != null && motherProperty != null && !childProperty.Equals(motherProperty))
             {
                 //Enforce preliminary checks on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(childProperty) && !RDFOntologyChecker.CheckReservedProperty(motherProperty))
+                if (!childProperty.IsReservedTerm() && !motherProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the subPropertyOf relation
                     if (RDFOntologyChecker.CheckSubPropertyOfCompatibility(this, childProperty, motherProperty))
@@ -526,7 +526,7 @@ namespace RDFSharp.Semantics.OWL
             if (childProperty != null && motherProperty != null && !childProperty.Equals(motherProperty))
             {
                 //Enforce preliminary checks on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(childProperty) && !RDFOntologyChecker.CheckReservedProperty(motherProperty))
+                if (!childProperty.IsReservedTerm() && !motherProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the subPropertyOf relation
                     if (RDFOntologyChecker.CheckSubPropertyOfCompatibility(this, childProperty, motherProperty))
@@ -557,7 +557,7 @@ namespace RDFSharp.Semantics.OWL
             if (aProperty != null && bProperty != null && !aProperty.Equals(bProperty))
             {
                 //Enforce preliminary checks on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(aProperty) && !RDFOntologyChecker.CheckReservedProperty(bProperty))
+                if (!aProperty.IsReservedTerm() && !bProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the equivalentProperty relation
                     if (RDFOntologyChecker.CheckEquivalentPropertyCompatibility(this, aProperty, bProperty))
@@ -589,7 +589,7 @@ namespace RDFSharp.Semantics.OWL
             if (aProperty != null && bProperty != null && !aProperty.Equals(bProperty))
             {
                 //Enforce preliminary checks on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(aProperty) && !RDFOntologyChecker.CheckReservedProperty(bProperty))
+                if (!aProperty.IsReservedTerm() && !bProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the equivalentProperty relation
                     if (RDFOntologyChecker.CheckEquivalentPropertyCompatibility(this, aProperty, bProperty))
@@ -621,7 +621,7 @@ namespace RDFSharp.Semantics.OWL
             if (aProperty != null && bProperty != null && !aProperty.Equals(bProperty))
             {
                 //Enforce preliminary checks on usage of BASE classes
-                if (!RDFOntologyChecker.CheckReservedProperty(aProperty) && !RDFOntologyChecker.CheckReservedProperty(bProperty))
+                if (!aProperty.IsReservedTerm() && !bProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the propertyDisjointWith relation
                     if (RDFOntologyChecker.CheckPropertyDisjointWithCompatibility(this, aProperty, bProperty))
@@ -653,7 +653,7 @@ namespace RDFSharp.Semantics.OWL
             if (aProperty != null && bProperty != null && !aProperty.Equals(bProperty))
             {
                 //Enforce preliminary checks on usage of BASE classes
-                if (!RDFOntologyChecker.CheckReservedProperty(aProperty) && !RDFOntologyChecker.CheckReservedProperty(bProperty))
+                if (!aProperty.IsReservedTerm() && !bProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the propertyDisjointWith relation
                     if (RDFOntologyChecker.CheckPropertyDisjointWithCompatibility(this, aProperty, bProperty))
@@ -685,7 +685,7 @@ namespace RDFSharp.Semantics.OWL
             if (aProperty != null && bProperty != null && !aProperty.Equals(bProperty))
             {
                 //Enforce preliminary checks on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(aProperty) && !RDFOntologyChecker.CheckReservedProperty(bProperty))
+                if (!aProperty.IsReservedTerm() && !bProperty.IsReservedTerm())
                 {
                     //Enforce taxonomy checks before adding the inverseOf relation
                     if (RDFOntologyChecker.CheckInverseOfPropertyCompatibility(this, aProperty, bProperty))
@@ -737,7 +737,7 @@ namespace RDFSharp.Semantics.OWL
             if (ontologyProperty != null && chainProperties != null)
             {
                 //Enforce preliminary checks on usage of BASE properties
-                if (!RDFOntologyChecker.CheckReservedProperty(ontologyProperty))
+                if (!ontologyProperty.IsReservedTerm())
                 {
                     //Enforce checks on syntactic corner cases and OWL2 decidability (do not allow cycles)
                     chainProperties.RemoveAll(chainProp => chainProp == null || chainProp.Equals(ontologyProperty));
@@ -1250,7 +1250,7 @@ namespace RDFSharp.Semantics.OWL
             var result = new RDFGraph();
 
             //Definitions
-            foreach (var p in this.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)))
+            foreach (var p in this.Where(prop => !prop.IsReservedTerm()))
             {
                 if (p.IsAnnotationProperty())
                 {

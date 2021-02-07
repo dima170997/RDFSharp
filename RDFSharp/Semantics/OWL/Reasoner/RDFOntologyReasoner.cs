@@ -126,7 +126,8 @@ namespace RDFSharp.Semantics.OWL
                 {
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Launching execution of standard reasoner rule '{0}'...", sRule));
 
-                    report.Merge(sRule.ExecuteRule(ontology));
+                    RDFOntologyReasonerReport sRuleReport = sRule.ExecuteRule(ontology);
+                    report.Merge(sRuleReport);
 
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Completed execution of standard reasoner rule '{0}': found {1} evidences.", sRule, sRuleReport.EvidencesCount));
                 }
@@ -140,7 +141,8 @@ namespace RDFSharp.Semantics.OWL
                 {
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Launching execution of custom reasoner rule '{0}'...", cRule));
 
-                    report.Merge(cRule.ExecuteRule(ontology));
+                    RDFOntologyReasonerReport cRuleReport = cRule.ExecuteRule(ontology);
+                    report.Merge(cRuleReport);
 
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Completed execution of custom reasoner rule '{0}': found {1} evidences.", cRule, cRuleReport.EvidencesCount));
                 }

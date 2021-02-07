@@ -414,7 +414,7 @@ namespace RDFSharp.Semantics.OWL
                         if (onProp != null)
                         {
                             //Ensure to not create a restriction over an annotation property (or a BASE reserved property)
-                            if (!onProp.IsAnnotationProperty() && !RDFOntologyChecker.CheckReservedProperty(onProp))
+                            if (!onProp.IsAnnotationProperty() && !onProp.IsReservedTerm())
                             {
                                 var restr = new RDFOntologyRestriction((RDFResource)r.Subject, onProp);
                                 if (!ontology.Model.ClassModel.Classes.ContainsKey(restr.PatternMemberID))
@@ -700,7 +700,7 @@ namespace RDFSharp.Semantics.OWL
                 #endregion Step 4: Init ClassModel
                 
                 #region Step 5: Init Data
-                var evaluableClasses = ontology.Model.ClassModel.Where(cls => !RDFOntologyChecker.CheckReservedClass(cls)).ToList();
+                var evaluableClasses = ontology.Model.ClassModel.Where(cls => !cls.IsReservedTerm()).ToList();
                 foreach (var simpleClass in evaluableClasses.Where(cls => cls.IsSimpleClass()))
                 {
                     foreach (var classtypeTriple in rdfType.SelectTriplesByObject((RDFResource)simpleClass.Value))
@@ -1187,7 +1187,7 @@ namespace RDFSharp.Semantics.OWL
                 #endregion Step 6.3: Finalize OWL:OneOf (DataRange)
                 
                 #region Step 6.4: Finalize PropertyModel [RDFS:Domain|RDFS:Range|RDFS:SubPropertyOf][OWL:EquivalentProperty|OWL:PropertyDisjointWith|OWL:AllDisjointProperties|OWL:PropertyChainAxiom|OWL:InverseOf]
-                var evaluableProperties = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop) 
+                var evaluableProperties = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm() 
                                                                                         && !prop.IsAnnotationProperty()).ToList();
                 foreach (var evp in evaluableProperties)
                 {

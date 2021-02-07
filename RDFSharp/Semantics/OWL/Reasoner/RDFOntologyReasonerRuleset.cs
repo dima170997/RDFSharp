@@ -332,8 +332,8 @@ namespace RDFSharp.Semantics.OWL
             var subPropertyOf = RDFVocabulary.RDFS.SUB_PROPERTY_OF.ToRDFOntologyObjectProperty();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and annotation properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
-                                                                                  && !prop.IsAnnotationProperty()).ToList();
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
+                                                                                 && !prop.IsAnnotationProperty()).ToList();
             foreach (var p in availableprops)
             {
 
@@ -367,7 +367,7 @@ namespace RDFSharp.Semantics.OWL
             var type = RDFVocabulary.RDF.TYPE.ToRDFOntologyObjectProperty();
 
             //Calculate the set of available classes on which to perform the reasoning (exclude BASE classes and literal-compatible classes)
-            var availableclasses = ontology.Model.ClassModel.Where(cls => !RDFOntologyChecker.CheckReservedClass(cls)
+            var availableclasses = ontology.Model.ClassModel.Where(cls => !cls.IsReservedTerm()
                                                                              && !ontology.Model.ClassModel.CheckIsLiteralCompatibleClass(cls));
 
             //Evaluate enumerations
@@ -467,8 +467,8 @@ namespace RDFSharp.Semantics.OWL
             var report = new RDFOntologyReasonerReport();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and annotation properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
-                                                                                  && !prop.IsAnnotationProperty()).ToList();
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
+                                                                                && !prop.IsAnnotationProperty()).ToList();
             foreach (var p1 in availableprops)
             {
 
@@ -516,7 +516,7 @@ namespace RDFSharp.Semantics.OWL
             var type = RDFVocabulary.RDF.TYPE.ToRDFOntologyObjectProperty();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and annotation properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
                                                                                  && !prop.IsAnnotationProperty()).ToList();
             foreach (var p in availableprops)
             {
@@ -556,7 +556,7 @@ namespace RDFSharp.Semantics.OWL
             var type = RDFVocabulary.RDF.TYPE.ToRDFOntologyObjectProperty();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and annotation properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
                                                                                  && !prop.IsAnnotationProperty()).ToList();
             foreach (var p in availableprops)
             {
@@ -678,7 +678,7 @@ namespace RDFSharp.Semantics.OWL
             var equivProperty = RDFVocabulary.OWL.EQUIVALENT_PROPERTY.ToRDFOntologyObjectProperty();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and annotation properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
                                                                                  && !prop.IsAnnotationProperty()).ToList();
             foreach (var p in availableprops)
             {
@@ -790,7 +790,7 @@ namespace RDFSharp.Semantics.OWL
             var report = new RDFOntologyReasonerReport();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and annotation/datatype properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
                                                                                  && prop.IsObjectProperty()).ToList();
             foreach (var p1 in availableprops)
             {
@@ -911,7 +911,7 @@ namespace RDFSharp.Semantics.OWL
             var report = new RDFOntologyReasonerReport();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and not-symmetric properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
                                                                                  && prop.IsSymmetricProperty()).ToList();
             foreach (var p in availableprops)
             {
@@ -953,7 +953,7 @@ namespace RDFSharp.Semantics.OWL
             var transPropCache = new Dictionary<long, RDFOntologyData>();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and not-transitive properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
                                                                                  && prop.IsTransitiveProperty()).ToList();
             foreach (var p in availableprops)
             {
@@ -1005,7 +1005,7 @@ namespace RDFSharp.Semantics.OWL
             var report = new RDFOntologyReasonerReport();
 
             //Calculate the set of available properties on which to perform the reasoning (exclude BASE properties and not-reflexive properties)
-            var availableprops = ontology.Model.PropertyModel.Where(prop => !RDFOntologyChecker.CheckReservedProperty(prop)
+            var availableprops = ontology.Model.PropertyModel.Where(prop => !prop.IsReservedTerm()
                                                                                  && prop.IsReflexiveProperty()).ToList();
             foreach (var p in availableprops)
             {
