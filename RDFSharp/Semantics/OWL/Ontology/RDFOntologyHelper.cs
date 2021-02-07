@@ -1866,8 +1866,7 @@ namespace RDFSharp.Semantics.OWL
 
         #region Initialize
         /// <summary>
-        /// Initializes the given ontology with support for RDF/RDFS/OWL/XSD T-BOX and A-BOX;<br/>
-        /// Invoke this method once when start working on your ontology, in order to prepare foundational knowledge!
+        /// Initializes the given ontology with support for foundational knowledge.
         /// </summary>
         public static RDFOntology InitializeBASE(this RDFOntology ontology)
         {
