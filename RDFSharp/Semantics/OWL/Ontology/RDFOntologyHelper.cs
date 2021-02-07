@@ -1088,16 +1088,13 @@ namespace RDFSharp.Semantics.OWL
             if (ontClass != null && ontology != null)
             {
 
-                //Expand ontology
-                var expOnt = ontology.UnionWith(RDFBASEOntology.Instance);
-
                 //DataRange/Literal-Compatible
-                if (expOnt.Model.ClassModel.CheckIsLiteralCompatibleClass(ontClass))
-                    result = expOnt.GetMembersOfLiteralCompatibleClass(ontClass);
+                if (ontology.Model.ClassModel.CheckIsLiteralCompatibleClass(ontClass))
+                    result = ontology.GetMembersOfLiteralCompatibleClass(ontClass);
 
                 //Restriction/Composite/Enumerate/Class
                 else
-                    result = expOnt.GetMembersOfNonLiteralCompatibleClass(ontClass);
+                    result = ontology.GetMembersOfNonLiteralCompatibleClass(ontClass);
 
             }
             return result;
@@ -1865,6 +1862,19 @@ namespace RDFSharp.Semantics.OWL
         }
         #endregion
 
+        #endregion
+
+        #region Initialize
+        /// <summary>
+        /// Initializes the given ontology with support for RDF/RDFS/OWL/XSD T-BOX and A-BOX.
+        /// </summary>
+        public static RDFOntology InitializeBASE(this RDFOntology ontology)
+        {
+            if (ontology != null)
+                ontology.Merge(RDFBASEOntology.Instance);
+
+            return ontology;
+        }
         #endregion
 
     }

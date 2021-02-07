@@ -99,11 +99,9 @@ namespace RDFSharp.Semantics.OWL
                 var incompWithAnn = RDFVocabulary.OWL.INCOMPATIBLE_WITH.ToRDFOntologyAnnotationProperty();
                 var importsAnn = RDFVocabulary.OWL.IMPORTS.ToRDFOntologyAnnotationProperty();
                 #endregion Step 1: Prefetch
-                
+
                 #region Step 2: Init Ontology
-                ontology = new RDFOntology(new RDFResource(ontGraph.Context.ToString()))
-                                .UnionWith(RDFBASEOntology.Instance);
-                ontology.Value = new RDFResource(ontGraph.Context.ToString());
+                ontology = new RDFOntology(new RDFResource(ontGraph.Context.ToString()));
                 if (!rdfType.ContainsTriple(new RDFTriple((RDFResource)ontology.Value, RDFVocabulary.RDF.TYPE, RDFVocabulary.OWL.ONTOLOGY)))
                 {
                     var ont = rdfType.SelectTriplesByObject(RDFVocabulary.OWL.ONTOLOGY)
@@ -2664,7 +2662,6 @@ namespace RDFSharp.Semantics.OWL
                 #endregion Step 6.7: Finalize Annotations
                 
                 #region Step 6.8: Finalize Ontology
-                ontology = ontology.DifferenceWith(RDFBASEOntology.Instance);
                 ontology.Value = new RDFResource(ontGraph.Context.ToString());
                 #endregion Step 6.8: Finalize Ontology
                 

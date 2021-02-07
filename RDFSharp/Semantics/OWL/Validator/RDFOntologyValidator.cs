@@ -149,11 +149,7 @@ namespace RDFSharp.Semantics.OWL
             {
                 RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Validator is going to be applied on Ontology '{0}'...", ontology.Value));
 
-                //STEP 1: Expand ontology
-                RDFOntology expOntology = ontology.UnionWith(RDFBASEOntology.Instance);
-
-                //STEP 2: Execute rules
-                Parallel.ForEach(Rules, r => report.MergeEvidences(r.ExecuteRule(expOntology)));
+                Parallel.ForEach(Rules, r => report.MergeEvidences(r.ExecuteRule(ontology)));
 
                 RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Validator has been applied on Ontology '{0}': found " + report.EvidencesCount + " evidences.", ontology.Value));
             }

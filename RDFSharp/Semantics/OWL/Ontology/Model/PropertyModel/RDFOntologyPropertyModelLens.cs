@@ -14,10 +14,6 @@
    limitations under the License.
 */
 
-using RDFSharp.Model;
-using RDFSharp.Semantics.SKOS;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,7 +47,7 @@ namespace RDFSharp.Semantics.OWL
                 if (ontology != null)
                 {
                     this.OntologyProperty = ontologyProperty;
-                    this.Ontology = ontology.UnionWith(RDFBASEOntology.Instance);
+                    this.Ontology = ontology;
                 }
                 else
                 {
@@ -66,15 +62,6 @@ namespace RDFSharp.Semantics.OWL
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Initializes the lens ontology with support for SKOS ontology
-        /// </summary>
-        public RDFOntologyPropertyModelLens InitializeSKOS()
-        {
-            this.Ontology = this.Ontology.UnionWith(RDFSKOSOntology.Instance);
-            return this;
-        }
-
         /// <summary>
         /// Enlists the properties which are directly (or indirectly, if inference is requested) children of the lens property
         /// </summary>

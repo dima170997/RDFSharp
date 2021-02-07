@@ -118,11 +118,7 @@ namespace RDFSharp.Semantics.OWL
             {
                 RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Reasoner is going to be applied on Ontology '{0}'...", ontology.Value));
 
-                //STEP 1: Expand ontology
-                RDFPatternMember ontologyValue = ontology.Value;
-                ontology = ontology.UnionWith(RDFBASEOntology.Instance);
-
-                //STEP 2: Execute BASE rules
+                //STEP 1: Execute BASE rules
                 #region BASE rules
                 var baseRules = this.Rules.Where(x => x.RulePriority <= RDFOntologyReasonerRuleset.RulesCount)
                                           .OrderBy(x => x.RulePriority);
@@ -130,14 +126,13 @@ namespace RDFSharp.Semantics.OWL
                 {
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Launching execution of standard reasoner rule '{0}'...", sRule));
 
-                    RDFOntologyReasonerReport sRuleReport = sRule.ExecuteRule(ontology);
-                    report.Merge(sRuleReport);
+                    report.Merge(sRule.ExecuteRule(ontology));
 
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Completed execution of standard reasoner rule '{0}': found {1} evidences.", sRule, sRuleReport.EvidencesCount));
                 }
                 #endregion
 
-                //STEP 3: Execute custom rules
+                //STEP 2: Execute custom rules
                 #region Custom rules
                 var customRules = this.Rules.Where(x => x.RulePriority > RDFOntologyReasonerRuleset.RulesCount)
                                             .OrderBy(x => x.RulePriority);
@@ -145,16 +140,11 @@ namespace RDFSharp.Semantics.OWL
                 {
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Launching execution of custom reasoner rule '{0}'...", cRule));
 
-                    RDFOntologyReasonerReport cRuleReport = cRule.ExecuteRule(ontology);
-                    report.Merge(cRuleReport);
+                    report.Merge(cRule.ExecuteRule(ontology));
 
                     RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Completed execution of custom reasoner rule '{0}': found {1} evidences.", cRule, cRuleReport.EvidencesCount));
                 }
                 #endregion
-
-                //STEP 4: Unexpand ontology
-                ontology = ontology.DifferenceWith(RDFBASEOntology.Instance);
-                ontology.Value = ontologyValue;
 
                 RDFSemanticsEvents.RaiseSemanticsInfo(string.Format("Reasoner has been applied on Ontology '{0}': found " + report.EvidencesCount + " evidences.", ontology.Value));
             }
