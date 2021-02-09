@@ -592,6 +592,35 @@ namespace RDFSharp.Semantics.OWL
             }
             return this;
         }
+
+        /// <summary>
+        /// Unmerges the given ontology from this one, returning this one reduced
+        /// </summary>
+        public RDFOntology Unmerge(RDFOntology ontology)
+        {
+            if (ontology != null)
+            {
+                //Unmerge the models
+                this.Model = this.Model.DifferenceWith(ontology.Model);
+
+                //Unmerge the data
+                this.Data = this.Data.DifferenceWith(ontology.Data);
+
+                //Unmerge the annotations
+                this.Annotations.VersionInfo = this.Annotations.VersionInfo.DifferenceWith(ontology.Annotations.VersionInfo);
+                this.Annotations.VersionIRI = this.Annotations.VersionIRI.DifferenceWith(ontology.Annotations.VersionIRI);
+                this.Annotations.Comment = this.Annotations.Comment.DifferenceWith(ontology.Annotations.Comment);
+                this.Annotations.Label = this.Annotations.Label.DifferenceWith(ontology.Annotations.Label);
+                this.Annotations.SeeAlso = this.Annotations.SeeAlso.DifferenceWith(ontology.Annotations.SeeAlso);
+                this.Annotations.IsDefinedBy = this.Annotations.IsDefinedBy.DifferenceWith(ontology.Annotations.IsDefinedBy);
+                this.Annotations.PriorVersion = this.Annotations.PriorVersion.DifferenceWith(ontology.Annotations.PriorVersion);
+                this.Annotations.BackwardCompatibleWith = this.Annotations.BackwardCompatibleWith.DifferenceWith(ontology.Annotations.BackwardCompatibleWith);
+                this.Annotations.IncompatibleWith = this.Annotations.IncompatibleWith.DifferenceWith(ontology.Annotations.IncompatibleWith);
+                this.Annotations.Imports = this.Annotations.Imports.DifferenceWith(ontology.Annotations.Imports);
+                this.Annotations.CustomAnnotations = this.Annotations.CustomAnnotations.DifferenceWith(ontology.Annotations.CustomAnnotations);
+            }
+            return this;
+        }
         #endregion
 
         #region Convert
