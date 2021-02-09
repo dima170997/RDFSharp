@@ -27,14 +27,28 @@ namespace RDFSharp.Semantics.FOAF
 
         #region Initialize
         /// <summary>
-        /// Initializes the given ontology with support for FOAF T-BOX and A-BOX
+        /// Enhances the given ontology by adding support for FOAF T-BOX and A-BOX
         /// </summary>
-        public static RDFOntology InitializeFOAF(this RDFOntology ontology)
+        public static RDFOntology AddFOAF(this RDFOntology ontology)
         {
             if (ontology != null)
             {
                 ontology.Merge(RDFFOAFOntology.Instance);
                 ontology.AddStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFFOAFOntology.Instance);
+            }
+
+            return ontology;
+        }
+
+        /// <summary>
+        /// Reduces the given ontology by removing support for FOAF T-BOX and A-BOX
+        /// </summary>
+        public static RDFOntology RemoveFOAF(this RDFOntology ontology)
+        {
+            if (ontology != null)
+            {
+                ontology.Unmerge(RDFFOAFOntology.Instance);
+                ontology.RemoveStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFFOAFOntology.Instance);
             }
 
             return ontology;

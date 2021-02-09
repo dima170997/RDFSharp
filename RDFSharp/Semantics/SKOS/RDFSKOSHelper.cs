@@ -31,14 +31,28 @@ namespace RDFSharp.Semantics.SKOS
 
         #region Initialize
         /// <summary>
-        /// Initializes the given ontology with support for SKOS T-BOX and A-BOX
+        /// Enhances the given ontology by adding support for SKOS T-BOX and A-BOX
         /// </summary>
-        public static RDFOntology InitializeSKOS(this RDFOntology ontology)
+        public static RDFOntology AddSKOS(this RDFOntology ontology)
         {
             if (ontology != null)
             {
                 ontology.Merge(RDFSKOSOntology.Instance);
                 ontology.AddStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFSKOSOntology.Instance);
+            }
+
+            return ontology;
+        }
+
+        /// <summary>
+        /// Reduces the given ontology by removing support for SKOS T-BOX and A-BOX
+        /// </summary>
+        public static RDFOntology RemoveSKOS(this RDFOntology ontology)
+        {
+            if (ontology != null)
+            {
+                ontology.Unmerge(RDFSKOSOntology.Instance);
+                ontology.RemoveStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFSKOSOntology.Instance);
             }
 
             return ontology;

@@ -44,9 +44,9 @@ namespace RDFSharp.Semantics.OWL
 
         #region Ctors
         /// <summary>
-        /// Default-ctor to build an ontology with the given name, eventually initialized with support for foundational knowledge.
+        /// Default-ctor to build an ontology with the given name
         /// </summary>
-        public RDFOntology(RDFResource ontologyName, bool initializeBASE = false)
+        public RDFOntology(RDFResource ontologyName)
         {
             if (ontologyName != null)
             {
@@ -55,9 +55,6 @@ namespace RDFSharp.Semantics.OWL
                 this.Model = new RDFOntologyModel();
                 this.Data = new RDFOntologyData();
                 this.Annotations = new RDFOntologyAnnotations();
-
-                if (initializeBASE)
-                    this.InitializeBASE();
             }
             else
             {

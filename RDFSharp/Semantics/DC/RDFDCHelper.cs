@@ -27,14 +27,28 @@ namespace RDFSharp.Semantics.DC
 
         #region Initialize
         /// <summary>
-        /// Initializes the given ontology with support for DublinCore T-BOX and A-BOX
+        /// Enhances the given ontology by adding support for DublinCore T-BOX and A-BOX
         /// </summary>
-        public static RDFOntology InitializeDC(this RDFOntology ontology)
+        public static RDFOntology AddDC(this RDFOntology ontology)
         {
             if (ontology != null)
             {
                 ontology.Merge(RDFDCOntology.Instance);
                 ontology.AddStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFDCOntology.Instance);
+            }
+
+            return ontology;
+        }
+
+        /// <summary>
+        /// Reduces the given ontology by removing support for DublinCore T-BOX and A-BOX
+        /// </summary>
+        public static RDFOntology RemoveDC(this RDFOntology ontology)
+        {
+            if (ontology != null)
+            {
+                ontology.Unmerge(RDFDCOntology.Instance);
+                ontology.RemoveStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFDCOntology.Instance);
             }
 
             return ontology;

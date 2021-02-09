@@ -27,14 +27,28 @@ namespace RDFSharp.Semantics.GEO
 
         #region Initialize
         /// <summary>
-        /// Initializes the given ontology with support for W3C GEO T-BOX and A-BOX
+        /// Enhances the given ontology by adding support for W3C GEO T-BOX and A-BOX
         /// </summary>
-        public static RDFOntology InitializeGEO(this RDFOntology ontology)
+        public static RDFOntology AddGEO(this RDFOntology ontology)
         {
             if (ontology != null)
             {
                 ontology.Merge(RDFGEOOntology.Instance);
                 ontology.AddStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFGEOOntology.Instance);
+            }
+
+            return ontology;
+        }
+
+        /// <summary>
+        /// Reduces the given ontology by removing support for W3C GEO T-BOX and A-BOX
+        /// </summary>
+        public static RDFOntology RemoveGEO(this RDFOntology ontology)
+        {
+            if (ontology != null)
+            {
+                ontology.Unmerge(RDFGEOOntology.Instance);
+                ontology.RemoveStandardAnnotation(RDFSemanticsEnums.RDFOntologyStandardAnnotation.Imports, RDFGEOOntology.Instance);
             }
 
             return ontology;

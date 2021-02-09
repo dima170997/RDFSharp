@@ -1866,12 +1866,23 @@ namespace RDFSharp.Semantics.OWL
 
         #region Initialize
         /// <summary>
-        /// Initializes the given ontology with support for foundational knowledge.
+        /// Enhances the given ontology by adding support for base ontology.
         /// </summary>
-        public static RDFOntology InitializeBASE(this RDFOntology ontology)
+        public static RDFOntology AddBASE(this RDFOntology ontology)
         {
             if (ontology != null)
                 ontology.Merge(RDFBASEOntology.Instance);
+
+            return ontology;
+        }
+
+        /// <summary>
+        /// Reduces the given ontology by removing support for base ontology.
+        /// </summary>
+        public static RDFOntology RemoveBASE(this RDFOntology ontology)
+        {
+            if (ontology != null)
+                ontology.Unmerge(RDFBASEOntology.Instance);
 
             return ontology;
         }
